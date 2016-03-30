@@ -20,6 +20,8 @@
             font-size: 42px;
             text-rendering: optimizelegibility;
             letter-spacing: -1px;
+            margin-top: 10px;
+            margin-bottom: 0;
         }
         p {
             font-size: 16px;
@@ -32,6 +34,7 @@
             color: white;
             display: inline-block;
             padding: 5px;
+            max-width: 90%;
         }
         input, span {
             padding: 5px;
@@ -68,7 +71,7 @@
         <input type="button" value="Create Table" onclick="createTable()">
     </p>
     <div id="output">
-        <input type="button" value="Reset Table" onclick="reset()">
+        <input type="button" value="Reset Table" onclick="reset()"><br>
         <p id="outputText"></p><br>
     </div>
     <span id="tempspan"></span>
