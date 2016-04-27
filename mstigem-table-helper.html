@@ -1,4 +1,4 @@
-<!-- Missouri S&T iGEM Table Helper Version 1.0. -->
+<!-- Missouri S&T iGEM Table Helper Version 1.1. -->
 <!-- Copyright (c) 2016 Kent Gorday under the MIT License -->
 
 <!DOCTYPE html>
@@ -6,7 +6,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="https://igem.mst.edu/wp-content/uploads/sites/12/2016/02/favicon.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="http://os_extranet_images.s3.amazonaws.com/341273_original.png" type="image/png">
     <title>S&amp;T iGEM Table Helper</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,100' rel='stylesheet' type='text/css'>
@@ -28,6 +29,7 @@
             font-family: 'Roboto', Arial, Sans-serif;
             color: #444;
             word-break: break-all;
+            line-height: 160%;
         }
         #outputText {
             background-color: #444;
@@ -35,6 +37,7 @@
             display: inline-block;
             padding: 5px;
             max-width: 90%;
+            text-align: left;
         }
         input, span {
             padding: 5px;
@@ -43,6 +46,10 @@
             white-space: pre;
             min-width: 32px;
             border: 1px solid #eeeeee;
+            box-sizing: initial;
+        }
+        input[type="button"] {
+            margin: 5px;
         }
         #tempspan {
             display: none;
@@ -62,7 +69,7 @@
     </style>
 </head>
 <body>
-    <h1>Missouri S&amp;T iGEM Table Helper - Kent Gorday - 1.0</h1>
+    <h1>Missouri S&amp;T iGEM Table Helper - 1.1</h1>
     <p id="dimensions">
         Table Width: <input type="text" name="width"><br>
         <br>
@@ -71,7 +78,9 @@
         <input type="button" value="Create Table" onclick="createTable()">
     </p>
     <div id="output">
-        <input type="button" value="Reset Table" onclick="reset()"><br>
+        <p>Leave unused sections empty.<br>
+        HTML for: &lt;i&gt;Italic text&lt;/i&gt; or &lt;b&gt;Bold text&lt;/b&gt;; μ and °<br>
+        <input type="button" value="Reset Table" onclick="reset()"></p>
         <p id="outputText"></p><br>
     </div>
     <span id="tempspan"></span>
@@ -140,23 +149,21 @@
         $('[name="height"]').css("width", "32px");
         $("#output").hide();
         
-        $(document).on("keypress", "input", function(e) {
+        $(document).on("keypress", 'input[type="text"]', function(e) {
             if (e.which !== 0 && e.charCode !== 0) {
                 var cc = String.fromCharCode(e.keyCode|e.charCode);
                 $tempspan.text($(this).val() + cc);
                 $resize = $tempspan.width();
                 $(this).css("width", $resize);
-                refreshOutput();
             }
+            refreshOutput();
         });
         
-        $(document).on("keyup", "input", function(e) {
-            if(e.keyCode === 8 || e.keyCode === 46) {
-                $tempspan.text($(this).val());
-                $resize = $tempspan.width();
-                $(this).css("width", $resize);
-                refreshOutput();
-            }
+        $(document).on("keyup", 'input[type="text"]', function() {
+            $tempspan.text($(this).val());
+            $resize = $tempspan.width();
+            $(this).css("width", $resize);
+            refreshOutput();
         });
     </script>
 </body>
