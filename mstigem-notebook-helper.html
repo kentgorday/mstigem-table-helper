@@ -1,4 +1,4 @@
-<!-- Missouri S&T iGEM Notebook Helper Version 1.0. -->
+<!-- Missouri S&T iGEM Notebook Helper Version 1.1. -->
 <!-- Copyright (c) 2016 Kent Gorday under the MIT License -->
 
 <!DOCTYPE html>
@@ -6,8 +6,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="https://igem.mst.edu/wp-content/uploads/sites/12/2016/02/favicon.png" type="image/x-icon">
-    <title>S&amp;T iGEM Table Helper</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="http://os_extranet_images.s3.amazonaws.com/341273_original.png" type="image/png">
+    <title>S&amp;T iGEM Notebook Helper</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,100' rel='stylesheet' type='text/css'>
     <style>
@@ -38,6 +39,7 @@
             max-width: 90%;
             white-space: pre-wrap;
             word-break: break-all;
+            text-align: left;
         }
         textarea {
             width: 20%;
@@ -50,10 +52,14 @@
             padding: 5px;
             border: 1px solid #eeeeee;
             max-width: 90%;
+            box-sizing: initial;
         }
         input, span {
             min-width: 32px;
             white-space: pre;
+        }
+        input[type="button"] {
+            margin: 5px;
         }
         #tempspan {
             display: none;
@@ -68,14 +74,14 @@
     </style>
 </head>
 <body>
-    <h1>Missouri S&amp;T iGEM Notebook Helper - Kent Gorday - 1.0</h1>
+    <h1>Missouri S&amp;T iGEM Notebook Helper - 1.1</h1>
     <p id="input">
         <a href="http://sdelc.orgsync.com/org/igem/tablehelper" target="_blank">
         Use the Table Helper to format tables, then copy-paste them where you want below!</a><br>
         Leave unused sections empty, and remember to send gel pictures to attach.<br>
-        HTML for: &lt;i&gt;Italic text&lt;/i&gt; or &lt;b&gt;Bold text&lt;/b&gt; or &lt;h5&gt;Header text&lt;/h5&gt;<br>
+        HTML for: &lt;i&gt;Italic text&lt;/i&gt; or &lt;b&gt;Bold text&lt;/b&gt; or &lt;h5&gt;Header text&lt;/h5&gt;; μ and °<br>
         <input type="button" value="Reset Entry" onclick="reset()"><br><br>
-        Date (99 Month 9999): <input type="text" name="date"><br><br>
+        Date (9 Month 9999): <input type="text" name="date"><br><br>
         Name: <input type="text" name="name"><br><br>
         Start time: <input type="text" name="start"><br><br>
         Title: <input type="text" name="title"><br><br>
@@ -151,35 +157,29 @@
         
         $tempspan = $("#tempspan");
         
-        $(document).on("keypress", "input", function(e) {
+        $(document).on("keypress", 'input[type="text"]', function(e) {
             if (e.which !== 0 && e.charCode !== 0) {
                 var cc = String.fromCharCode(e.keyCode|e.charCode);
                 $tempspan.text($(this).val() + cc);
                 $resize = $tempspan.width();
                 $(this).css("width", $resize);
-                refreshOutput();
             }
+            refreshOutput();
         });
         
-        $(document).on("keyup", "input", function(e) {
-            if(e.keyCode === 8 || e.keyCode === 46) {
-                $tempspan.text($(this).val());
-                $resize = $tempspan.width();
-                $(this).css("width", $resize);
-                refreshOutput();
-            }
+        $(document).on("keyup", 'input[type="text"]', function() {
+            $tempspan.text($(this).val());
+            $resize = $tempspan.width();
+            $(this).css("width", $resize);
+            refreshOutput();
         });
         
-        $(document).on("keypress", "textarea", function(e) {
-            if (e.which !== 0 && e.charCode !== 0) {
-                refreshOutput();
-            }
+        $(document).on("keypress", "textarea", function() {
+            refreshOutput();
         });
         
-        $(document).on("keyup", "textarea", function(e) {
-            if(e.keyCode === 8 || e.keyCode === 46) {
-                refreshOutput();
-            }
+        $(document).on("keyup", "textarea", function() {
+            refreshOutput();
         });
     </script>
 </body>
